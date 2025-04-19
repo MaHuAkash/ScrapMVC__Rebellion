@@ -1,0 +1,126 @@
+﻿@model WebCWMS.ViewModel.UserWorkingHoursViewModel
+
+<h2>Time Records for @Model.User.Email</h2>
+
+<p>Total Worked Hours: @Model.TotalWorkedHours hours</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Clock In Time</th>
+            <th>Clock Out Time</th>
+            <th>Working Hours</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var record in Model.TimeRecords)
+        {
+            <tr>
+                <td>@record.ClockInTimeVancouver.ToString("yyyy-MM-dd hh:mm:ss tt")</td>
+                <td>@(record.ClockOutTime.HasValue ? record.ClockOutTimeVancouver.Value.ToString("yyyy-MM-dd hh:mm:ss tt") : "Still Working")</td>
+                <td>@(record.ClockOutTime.HasValue ? (record.ClockOutTime.Value - record.ClockInTime).ToString(@"hh\:mm\:ss") : "N/A")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Optionally: Integrate your existing calendar component -->
+<div class="card">
+    <div class="card-body">
+        <div class="cal1" id="calendar"></div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Template for CLNDR calendar, modify as needed
+        var clndrTemplate =
+            "<div class='clndr-controls'>" +
+            "<div class='clndr-control-button'>" +
+            "<span class='clndr-previous-button'>previous</span>" +
+            "</div>" +
+            "<div class='month'><%= month %> <%= year %></div>" +
+            "<div class='clndr-control-button rightalign'>" +
+            "<span class='clndr-next-button'>next</span>" +
+            "</div>" +
+            "</div>" +
+            "<table class='clndr-table' border='0' cellspacing='0' cellpadding='0'>" +
+            "<thead>" +
+            "<tr class='header-days'>" +
+            "<% for(var i = 0; i < daysOfTheWeek.length; i++) { %>" +
+            "<td class='header-day'><%= daysOfTheWeek[i] %></td>" +
+            "<% } %>" +
+            "</tr>" +
+            "</thead>" +
+            "<tbody>" +
+            "<% for(var i = 0; i < numberOfRows; i++){ %>" +
+            "<tr>" +
+            "<% for(var j = 0; j < 7; j++){ %>" +
+            "<% var d = j + i * 7; %>" +
+            "<td class='<%= days[d].classes %>'>" +
+            "<div class='day-contents'>" +
+            "<%= days[d].day %>" +
+            "<% if(days[d].events.length > 0) { %>" +
+            "<% _.each(days[d].events, function(event) { %>" +
+            "<div class='event-duration'><%= event.title %></div>" +
+            "<% }); %>" +
+            "<% } %>" +
+            "</div>" +
+            "</td>" +
+            "<% } %>" +
+            "</tr>" +
+            "<% } %>" +
+            "</tbody>" +
+            "</table>";
+
+        // Parse time records data passed from the server-side
+        var timeRecords = @Html.Raw(Json.Serialize(Model.TimeRecords));
+        console.log("TimeRecords:", timeRecords);
+
+        // Process the timeRecords to convert them to CLNDR-compatible events
+        var eventArray = timeRecords.map(function (record) {
+            var clockIn = moment(record.clockInTimeVancouver);  // Parse Clock In time using moment.js
+            var clockOut = record.clockOutTimeVancouver ? moment(record.clockOutTimeVancouver) : null;
+
+            var duration;
+            if (clockOut && clockOut.isValid()) {
+                if (clockOut.isAfter(clockIn)) {
+                    var durationInMinutes = clockOut.diff(clockIn, 'minutes');
+                    var hours = Math.floor(durationInMinutes / 60);
+                    var minutes = durationInMinutes % 60;
+                    var seconds = clockOut.diff(clockIn, 'seconds') % 60;
+                    duration = hours + 'h ' + minutes + 'm ' + seconds + 's';
+                } else {
+                    duration = 'Clock Out time is before or same as Clock In time';
+                }
+            } else {
+                duration = 'Ongoing Session';  // No clock-out time available
+            }
+
+            console.log("Duration:", duration);
+
+            // Return event object with title and date formatted for CLNDR
+            return {
+                title: duration,  // This is the duration of the work session
+                date: clockIn.format('YYYY-MM-DD'),  // Calendar will mark this date
+            };
+        });
+
+        // Log eventArray to ensure it has been processed correctly
+        console.log("Final eventArray:", eventArray);
+
+        // Initialize CLNDR with the events (time records)
+        $('.cal1').clndr({
+            events: eventArray,  // Pass the eventArray to CLNDR
+            template: clndrTemplate,  // Use the template defined above
+            clickEvents: {
+                click: function (target) {
+                    console.log('Clicked on: ', target);
+                }
+            },
+            doneRendering: function () {
+                console.log('CLNDR Done Rendering');
+            },
+        });
+    </script>
+}

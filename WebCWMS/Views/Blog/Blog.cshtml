@@ -1,0 +1,248 @@
+﻿@using System.IO;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
+@model X.PagedList.IPagedList<WebCWMS.ViewModel.BlogViewModel>
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<style>
+	.custom-image-size {
+		width: 88%;
+		height: 375px;
+		object-fit: cover;
+		display: block; /* Ensure the image behaves as a block-level element */
+		margin: 0 auto;
+	}
+
+	.custom-image-sizess {
+		width: 100%;
+		height: 375px;
+		object-fit: cover;
+		display: block; /* Ensure the image behaves as a block-level element */
+	}
+
+</style>
+
+
+
+
+<div class="container py-4">
+
+	<div class="row">
+		<div class="col-lg-3">
+			<aside class="sidebar">
+ 				<h5 class="font-weight-semi-bold pt-4">Categories</h5>
+				<ul class="nav nav-list flex-column mb-5">
+					<li class="nav-item"><a class="nav-link" href="#">Design (2)</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Videos (3)</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Lifestyle (2)</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Technology (1)</a></li>
+				</ul>
+				<div class="tabs tabs-dark mb-4 pb-2">
+					<ul class="nav nav-tabs">
+						<li class="nav-item"><a class="nav-link show active text-1 font-weight-bold text-uppercase" href="#popularPosts" data-bs-toggle="tab">Older</a></li>
+						<li class="nav-item"><a class="nav-link text-1 font-weight-bold text-uppercase" href="#recentPosts" data-bs-toggle="tab">Recent</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="popularPosts">
+							<ul class="simple-post-list">
+								@foreach (var blogViewModel in ViewBag.RecentBlogViewModel)
+								{
+									<li>
+										<div class="post-image">
+											<div class="img-thumbnail img-thumbnail-no-borders d-block">
+												<a>
+													<img src="@("~/image/" + blogViewModel.ImageName)" asp-append-version="true" width="50" height="50" />
+												</a>
+											</div>
+										</div>
+										<div class="post-info">
+											<a href="#" onclick="showBlogDetails('@Html.Raw(blogViewModel.Id)')">@blogViewModel.Title</a>
+											<div class="post-meta">
+												@blogViewModel.Date.ToString("MMM dd, yyyy")
+											</div>
+										</div>
+									</li>
+								}
+							</ul>
+						</div>
+						<div class="tab-pane" id="recentPosts">
+							<ul class="simple-post-list">
+								@foreach (var blogViewModel in ViewBag.PopularBlogViewModel)
+								{
+									<li>
+										<div class="post-image">
+											<div class="img-thumbnail img-thumbnail-no-borders d-block">
+												<a asp-controller="Blog" asp-action="Details" asp-route-id="@blogViewModel.Id">
+													<img src="@("~/image/" + blogViewModel.ImageName)" asp-append-version="true" width="50" height="50" />
+												</a>
+											</div>
+										</div>
+										<div class="post-info">
+											<a href="#" onclick="showBlogDetails('@Html.Raw(blogViewModel.Id)')">@blogViewModel.Title</a>
+											<div class="post-meta">
+												@blogViewModel.Date.ToString("MMM dd, yyyy")
+											</div>
+										</div>
+									</li>
+								}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</aside>
+		</div>
+		<div class="col-lg-9">
+			<div class="blog-posts">
+				@foreach (var blog in Model)
+				{
+					<article class="post post-large">
+						<div class="post-image">
+							<a asp-controller="Blog" asp-action="Details" asp-route-id="@blog.Id" style="text-align:center">
+								<img src="@("~/image/" + blog.ImageName)" asp-append-version="true" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0 custom-image-size" />
+							</a>
+						</div>
+
+						<div class="post-date">
+							<span class="day">
+								@blog.Date.ToString(" dd")
+							</span>
+							<span class="month">
+								@blog.Date.ToString("MMM")
+							</span>
+						</div>
+
+						<div class="post-content">
+							@{
+								string truncatedTitle = string.Join(" ", @blog.Title.Split().Take(4));
+								if (@blog.Title.Split().Length > 4)
+								{
+									truncatedTitle += "...";
+								}
+
+								string truncatedDescription = string.Join(" ", @blog.Description.Split().Take(50));
+								if (@blog.Description.Split().Length > 50)
+								{
+									truncatedDescription += "...";
+								}
+							}
+
+
+							<h2 class="font-weight-semibold text-5 line-height-6 mt-3 mb-2"><a href="blog-post.html">@truncatedTitle</a></h2>
+							<p>@truncatedDescription</p>
+							<div class="post-meta">
+								<span>
+									<i class="bi bi-chat-dots-fill"></i>
+									<a href="#" class="addCommentLink" data-blogid="@blog.Id">12 Comments</a>
+								</span>						
+								<a class="btn btn-outline btn-primary mb-2" style="float:right" asp-action="Details" asp-controller="Blog" asp-route-id="@blog.Id"> Read More</a>
+
+
+
+								<br />
+							</div>
+
+						</div>
+					</article>
+				}
+
+			</div>
+
+
+			<!-- Modal -->
+
+
+
+
+			<div class="row">
+				<div class="col">
+					<ul class="pagination float-end">
+						@if (Model.PageCount > 1)
+						{
+							@if (Model.HasPreviousPage)
+							{
+								<li class="page-item">
+									<a class="page-link" href="@Url.Action("Blog", new { page = Model.PageNumber - 1 })">&lt;</a>
+								</li>
+							}
+
+							<li class="page-item active">
+								<a class="page-link" href="@Url.Action("Blog", new { page = Model.PageNumber })">@Model.PageNumber</a>
+							</li>
+
+							@if (Model.HasNextPage)
+							{
+								<li class="page-item">
+									<a class="page-link" href="@Url.Action("Blog", new { page = Model.PageNumber + 1 })">&gt;</a>
+								</li>
+							}
+
+							<li class="page-item disabled">
+								<span class="page-link">@($"Page {Model.PageNumber} of {Model.PageCount}")</span>
+							</li>
+						}
+					</ul>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	@section Scripts {
+		<script>
+			$(document).ready(function () {
+				// Attach a click event to the "Add Comment" links with the class "addCommentLink"
+				$(".addCommentLink").click(function () {
+					// Check if the blogId is available as a data attribute on the link
+					var blogId = $(this).data("blogid");
+
+					// Check if blogId is valid (assuming valid IDs are positive integers)
+					if (blogId && Number.isInteger(blogId) && blogId > 0) {
+						// Redirect to the AddComment action in the CommentController
+						window.location.href = '/Comment/AddComment?blogId=' + blogId;
+					} else {
+						// Show an error message or handle the situation accordingly
+						alert('Invalid blogId: ' + blogId);
+					}
+
+					// Prevent the default link behavior (to avoid page refresh or navigation)
+					return false;
+				});
+			});
+		</script>
+		<script>
+			function showBlogDetails(blogId) {
+				$.ajax({
+					type: 'GET',
+					url: '/Blog/Popup',
+					data: { id: blogId },
+					success: function (result) {
+						$('#blogTitle').text(result.title);
+						$('#blogDescription').text(result.description);
+
+						var imageURL = '/image/' + result.imageName;
+						$('#blogImage').attr('src', imageURL);
+						$('#blogDetailsPopup').modal('show');
+
+					},
+					error: function () {
+						alert('Error occurred while fetching blog details.');
+					}
+				});
+
+				return false;
+			}
+		</script>
+
+	}
+
+	<partial name="_BlogDetailsPartial" />
+
+
+
+
+

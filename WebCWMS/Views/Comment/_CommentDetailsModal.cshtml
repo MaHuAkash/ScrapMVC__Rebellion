@@ -1,0 +1,38 @@
+﻿<style>
+    /* Styles for the image container */
+    .image-containerss {
+        display: flex; /* Use flexbox to center the image horizontally and vertically */
+        justify-content: center; /* Center the image horizontally */
+        align-items: center; /* Center the image vertically */
+        width: auto; /* Set the desired width for the container (optional) */
+        height: auto; /* Set the desired height for the container (optional) */
+    }
+
+    /* Styles for the image itself (optional) */
+    #commentImage {
+        max-width: 100%; /* Ensure the image doesn't exceed the container's width */
+        max-height: 100%; /* Ensure the image doesn't exceed the container's height */
+        border-radius: 5px; /* Apply rounded corners (optional) */
+    }
+</style>
+
+<div class="modal" id="commentDetailsModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Are you sure you want to delete this comment? </h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Display the comment name, content, and image below the confirmation message -->
+                <h6><span class="text-color-primary" id="commentContentModal"></span></h6>
+            </div>  
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="deleteCommentConfirmed()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

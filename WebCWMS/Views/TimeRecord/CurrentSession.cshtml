@@ -1,0 +1,61 @@
+﻿@model WebCWMS.ViewModel.TimeRecordViewModel
+
+@{
+    ViewData["Title"] = "Current Session";
+    Layout = "~/Areas/Identity/Pages/Views/Shared/_LoginPartial.cshtml";
+}
+
+
+@if (TempData["ClockedInMessage"] != null)
+{
+    <div class="alert alert-warning">@TempData["ClockedInMessage"]</div>
+}
+
+
+<h2>You are currently clocked in</h2>
+
+@{
+    // Specify the time zone for Abbotsford, Canada
+    TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById("America/Vancouver");
+
+    // Convert the clock-in time to the specified time zone
+    DateTime clockInTimePacific = TimeZoneInfo.ConvertTimeFromUtc(Model.ClockInTime, timeZone);
+    DateTime nowPacific = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
+
+    // Calculate the time since clock-in
+    TimeSpan timeSinceClockIn = nowPacific - clockInTimePacific;
+
+    // Format the time components
+    int hours = (int)timeSinceClockIn.TotalHours;
+    int minutes = timeSinceClockIn.Minutes;
+    int seconds = timeSinceClockIn.Seconds;
+}
+
+<p>Time since clock-in: <span id="timeSinceClockIn">@hours.ToString("D2"):@minutes.ToString("D2"):@seconds.ToString("D2")</span></p>
+
+<!-- Clock Out Button -->
+<form asp-action="ClockOut" asp-controller="TimeRecord" method="post">
+    <input type="hidden" name="recordId" value="@Model.TimeRecordId" />
+    <button type="submit" class="btn btn-danger">Clock Out</button>
+</form>
+
+@section Scripts {
+    <script>
+        function updateClock() {
+            var clockInTimeUtc = new Date("@Model.ClockInTime".replace(' ', 'T') + 'Z'); // Ensure the time is in ISO format and UTC
+            var nowUtc = new Date(new Date().toUTCString()); // Get the current UTC time
+            var timeSinceClockIn = new Date(nowUtc - clockInTimeUtc);
+
+            var hours = timeSinceClockIn.getUTCHours();
+            var minutes = timeSinceClockIn.getUTCMinutes();
+            var seconds = timeSinceClockIn.getUTCSeconds();
+
+            document.getElementById("timeSinceClockIn").textContent =
+                (hours < 10 ? "0" : "") + hours + ":" +
+                (minutes < 10 ? "0" : "") + minutes + ":" +
+                (seconds < 10 ? "0" : "") + seconds;
+        }
+
+        setInterval(updateClock, 1000);
+    </script>
+}

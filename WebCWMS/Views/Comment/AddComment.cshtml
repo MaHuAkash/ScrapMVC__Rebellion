@@ -1,0 +1,71 @@
+﻿@model WebCWMS.Models.Comment
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4">
+
+    <div class="row">
+        <div class="col">
+            <div class="blog-posts single-post">
+
+                <article class="post post-large blog-single-post border-0 m-0 p-0">
+                    <div class="post-block mt-5 post-leave-comment">
+                        <h4 class="mb-3">Leave a comment</h4>
+
+                        <form class="contact-form p-4 rounded bg-color-grey" method="post" asp-action="AddComment" enctype="multipart/form-data">
+                            @Html.AntiForgeryToken()
+
+                            <input type="hidden" asp-for="BlogId" />
+
+                            <div class="p-2">
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label class="form-label required font-weight-bold text-dark" asp-for="Name">Full Name</label>
+                                        <input type="text" data-msg-required="Please enter your name." maxlength="100" class="form-control" asp-for="Name" required>
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label class="form-label required font-weight-bold text-dark" asp-for="Email">Email Address</label>
+                                        <input type="email" data-msg-required="Please enter your email address." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control" asp-for="Email" required>
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label class="form-label required font-weight-bold text-dark" asp-for="CreatedAt">Created At</label>
+                                        <input type="datetime-local" data-msg-required="Please enter the created date and time." class="form-control" asp-for="CreatedAt" required>
+                                        <span asp-validation-for="CreatedAt" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label class="form-label required font-weight-bold text-dark" asp-for="ImageFile">Upload Image</label>
+                                        <input type="file" data-msg-required="Please select an image." class="form-control" asp-for="ImageFile" required>
+                                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label class="form-label required font-weight-bold text-dark" asp-for="Content">Comment</label>
+                                        <textarea maxlength="5000" data-msg-required="Please enter your message." rows="8" class="form-control" asp-for="Content" required></textarea>
+                                        <span asp-validation-for="Content" class="text-danger"></span>
+                                    </div>
+                                </div>
+                               <hr class="solid"/>
+                                <div class="row">
+                                    <div class="form-group col mb-0">
+                                        <button type="submit" class="btn btn-primary btn-modern" data-loading-text="Loading...">Post Comment</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </article>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

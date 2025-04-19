@@ -1,0 +1,257 @@
+﻿@model IEnumerable<WebCWMS.Models.ApplicationUser>
+@{
+    ViewData["Title"] = "User Dashboard";
+}
+@{
+	Layout = "~/Areas/Identity/Pages/Views/Shared/_LoginPartial.cshtml";
+}
+
+<style>
+	.animated-card {
+		transition: transform .2s; /* Animation */
+		margin-bottom: 20px; /* Spacing */
+		border-radius: 10px; /* Rounded corners */
+		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Shadow for depth */
+	}
+
+		.animated-card:hover {
+			transform: scale(1.05); /* Zoom effect on hover */
+		}
+
+    .icon-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px; /* Adjust as needed */
+    }
+
+    .icon-large {
+        font-size: 3em; /* Adjust the size as needed */
+    }
+
+	.panel-footer {
+		padding: 20px;
+		background-color: #f5f5f5; /* Example background color */
+	}
+
+	.social-icons {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.social-item {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 0 10px;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		color: white;
+		font-size: 20px; /* Adjust icon size as needed */
+	}
+
+	.bg-facebook {
+		background-color: #3b5998;
+	}
+
+	.bg-twitter {
+		background-color: #1da1f2;
+	}
+
+	.bg-google {
+		background-color: #db4437;
+	}
+
+	.social-item i {
+		line-height: 40px; /* Aligns the icon vertically */
+	}
+
+</style>
+
+<br/>
+
+<!-- ROW OPEN -->
+<div class="row">
+    <!-- Project Column -->
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="card animated-card">
+            <div class="card-body">
+                <div class="text-center">
+                    <small class="text-muted">Projects</small>
+                    <h2 class="mb-2 mt-0">@ViewBag.TotalProjects</h2>
+                    <p class="mb-0"><span class="dot-label bg-secondary me-2"></span>Num of Projects</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Column -->
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="card animated-card">
+            <div class="card-body">
+                <div class="text-center">
+                    <small class="text-muted">Blogs</small>
+                    <h2 class="mb-2 mt-0">@ViewBag.TotalBlog</h2>
+                    <p class="mb-0"><span class="dot-label bg-success me-2"></span>Num of Blogs</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Column -->
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="card animated-card">
+            <div class="card-body">
+                <div class="text-center">
+                    <small class="text-muted">Categories</small>
+                    <h2 class="mb-2 mt-0">@ViewBag.TotalCategory</h2>
+                    <p class="mb-0"><span class="dot-label bg-warning me-2"></span>Num of Categories</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Running Cost Column -->
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <div class="card animated-card">
+            <div class="card-body">
+                <div class="text-center">
+                    <small class="text-muted">Application Users</small>
+                    <h2 class="mb-2 mt-0">@ViewBag.TotalApplicationUsers</h2>
+                    <p class="mb-0"><span class="dot-label bg-primary me-2"></span>Total Users</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="row row-cards">
+	<div class="col-lg-4 col-xl-3">
+		<div class="card">
+			<div class=" userlist bg-primary br-tl-7 br-tr-7 ">
+				<div class="card-body text-center">
+					<div class="userprofile mt-0">
+						<div class="userpic"> <img src="~/F1.jpg" alt="" class="userpicimg"> </div>
+						<h3 class="username">BangxBug </h3>
+						<p class="text-white mb-1">Software Developer</p>
+						<p class="text-white"> Itabhatta Jhapa, Nepal<i class="flag flag-np"></i></p>
+					</div>
+					<p class="text-white-transparent mb-0">
+						As I continue my journey, with each line of code, I'm' not just building applications — I'm building dreams, leaving an indelible mark on the digital landscape that will echo for years to come.
+					<p class="mb-0"><span class="text-white">Email : </span><a href="#" class="text-white-transparent">akashlamsal02@gmail.com</a></p>
+					<p class="mb-0"><span class="text-white">Phone no :</span><span class="text-white-transparent"> +778 323 6704</span></p>
+				</div>
+			</div>
+			<div class="panel-footer border-0">
+				<div class="social-icons text-center">
+					<a href="#" class="social-item bg-facebook">
+						<i class="fa fa-facebook"></i>
+					</a>
+
+					<a href="#" class="social-item bg-twitter">
+						<i class="fa fa-github"></i>
+					</a>
+
+					<a href="#" class="social-item bg-google">
+						<i class="fa fa-instagram"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div><!-- COL-END -->
+	<div class="col-lg-8 col-xl-9">
+		<div class="input-group mb-5">
+			<input type="text" id="searchInput" class="form-control" placeholder="Search users...">
+			<button type="button" class="btn btn-facebook"><i class="fa fa-search me-2"></i>Search</button>
+		</div>
+		<div class="card">
+			<div class="card-header border-bottom-0 p-4">
+				<h2 class="card-title"> @ViewBag.TotalUsers users</h2>
+				<div class="page-options d-flex float-end">
+					<select class="form-control custom-select w-auto">
+						<option value="asc">Latest</option>
+						<option value="desc">Oldest</option>
+					</select>
+				</div>
+			</div>
+			<div class="e-table px-5 pb-5">
+				<div class="table-responsive table-lg">
+					<div id="userTableContainer">
+						<!-- This container will be filled with the partial view content -->
+						@Html.Partial("_UserListPartial", Model)
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="mb-5">
+			<ul class="pagination float-end">
+				<li class="page-item page-prev disabled">
+					<a class="page-link" href="#" tabindex="-1">Prev</a>
+				</li>
+				<li class="page-item active"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item"><a class="page-link" href="#">4</a></li>
+				<li class="page-item"><a class="page-link" href="#">5</a></li>
+				<li class="page-item page-next">
+					<a class="page-link" href="#">Next</a>
+				</li>
+			</ul>
+		</div>
+	</div><!-- COL-END -->
+</div>
+
+@section Scripts {
+	<script>
+		$(document).ready(function () {
+			$("#searchInput").on("keyup", function () {
+				var searchQuery = $(this).val();
+
+				$.ajax({
+					url: '@Url.Action("SearchUser", "Admin")', // Ensure this matches your controller and action names
+					data: { searchQuery: searchQuery },
+					type: 'GET',
+					success: function (result) {
+						$('#userTableContainer').html(result);
+					},
+					error: function (xhr, status, error) {
+						// Handle any errors here
+						console.error("Error in search: ", error);
+					}
+				});
+			});
+		});
+	</script>
+
+	<script>
+		$(document).ready(function () {
+			$('.delete-user-btn').click(function () {
+				var userId = $(this).data('user-id');
+				if (confirm('Are you sure you want to delete this user?')) {
+					$.ajax({
+						url: '/Admin/DeleteUser', // Adjust this URL to your user deletion route
+						type: 'POST',
+						data: { userId: userId },
+						success: function (response) {
+							swal({
+								title: 'Deleted!',
+								text: 'The user has been deleted.',
+								type: 'success'
+							}, function () {
+								location.reload();
+							});
+						},
+						error: function () {
+							swal('Error!', 'Error occurred while deleting the user.', 'error');
+						}
+					});
+				}
+			});
+		});
+	</script>
+
+} 

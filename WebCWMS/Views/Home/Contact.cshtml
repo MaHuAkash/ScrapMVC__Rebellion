@@ -1,0 +1,106 @@
+﻿@model WebCWMS.ViewModel.ContactViewModel
+
+@{
+    ViewData["Title"] = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+
+    <div class="row py-4">
+        <div class="col-lg-7 appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="650">
+
+            <div class="offset-anchor" id="contact-sent"></div>
+
+
+            <h2 class="font-weight-bold text-7 mt-2 mb-0">Contact Us</h2>
+            <p class="mb-4">Feel free to ask for details, don't save any questions!</p>
+
+            <form id="contactFormAdvanced" action="@Url.Action("Contact")" method="POST" enctype="multipart/form-data">
+                <input type="hidden" value="true" name="emailSent" id="emailSent">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="form-label mb-1 text-2">Full Name</label>
+                        <input type="text" value="" data-msg-required="Please enter your name." maxlength="100" class="form-control text-3 h-auto py-2" name="Name" id="name" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="form-label mb-1 text-2"> Email Address</label>
+                        <input type="email" value="" data-msg-required="Please enter the  Email address." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control text-3 h-auto py-2" name="Email" id="Email" required>
+                    </div>
+                </div>
+
+               
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="form-label mb-1 text-2">Subject</label>
+                        <input type="text" value="" data-msg-required="Please enter the subject." maxlength="100" class="form-control text-3 h-auto py-2" name="Subject" id="subject" required>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-12 mb-4">
+                        <label class="form-label mb-1 text-2">Message</label>
+                        <textarea maxlength="5000" data-msg-required="Please enter your message." rows="6" class="form-control text-3 h-auto py-2" name="Message" id="message" required></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-12 mb-5">
+                        <input type="submit" id="contactFormSubmit" value="Send Message" class="btn btn-primary btn-modern pull-right" data-loading-text="Loading...">
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+        <div class="col-lg-5">
+
+            <div class="overflow-hidden mb-1">
+                <h4 class="text-primary mb-0 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="200">Get in <strong>Touch</strong></h4>
+            </div>
+            <div class="overflow-hidden mb-3">
+                <p class="lead text-4 mb-0 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget leo at velit imperdiet varius. In eu ipsum vitae velit congue iaculis vitae at risus.</p>
+            </div>
+            <div class="overflow-hidden">
+                <p class="mb-0 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget leo at velit imperdiet varius.</p>
+            </div>
+
+            <div class="appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="800">
+                <h4 class="text-primary pt-5">Our <strong>Office</strong></h4>
+                <ul class="list list-icons list-icons-style-3 mt-2">
+                    <li><i class="fas fa-map-marker-alt top-6"></i> <strong>Address:</strong> 1234 Street Name, City Name, United States</li>
+                    <li><i class="fas fa-phone top-6"></i> <strong>Phone:</strong> (123) 456-789</li>
+                    <li><i class="fas fa-envelope top-6"></i> <strong>Email:</strong> <a href="https://www.okler.net/cdn-cgi/l/email-protection#3e535f57527e5b465f534e525b105d5153"><span class="__cf_email__" data-cfemail="eb868a8287ab8e938a869b878ec5888486">[email&#160;protected]</span></a></li>
+                </ul>
+
+                <div class="row lightbox mt-4 mb-0 pb-0" data-plugin-options="{'delegate': 'a', 'type': 'image', 'gallery': {'enabled': true}}">
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <a class="img-thumbnail p-0 border-0 d-block" href="img/office/our-office-1.jpg" data-plugin-options="{'type':'image'}">
+                            <img class="img-fluid" src="img/office/our-office-1.jpg" alt="Office">
+                        </a>
+                    </div>
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <a class="img-thumbnail p-0 border-0 d-block" href="img/office/our-office-2.jpg" data-plugin-options="{'type':'image'}">
+                            <img class="img-fluid" src="img/office/our-office-2.jpg" alt="Office">
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="img-thumbnail p-0 border-0 d-block" href="img/office/our-office-3.jpg" data-plugin-options="{'type':'image'}">
+                            <img class="img-fluid" src="img/office/our-office-3.jpg" alt="Office">
+                        </a>
+                    </div>
+                </div>
+
+                <h4 class="text-primary pt-5">Business <strong>Hours</strong></h4>
+                <ul class="list list-icons list-dark mt-2">
+                    <li><i class="far fa-clock top-6"></i> Monday - Friday - 9am to 5pm</li>
+                    <li><i class="far fa-clock top-6"></i> Saturday - 9am to 2pm</li>
+                    <li><i class="far fa-clock top-6"></i> Sunday - Closed</li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

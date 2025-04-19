@@ -1,0 +1,46 @@
+﻿@model IEnumerable<WebCWMS.Models.ApplicationUser>
+
+<table class="table table-bordered mb-0">
+    <thead>
+        <tr>
+            <th class="text-center">Photo</th>
+            <th>Email</th>
+            <th>Approved</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            string imageSrc = user?.ProfilePicture != null && user.ProfilePicture.Length > 0
+            ? $"data:image/jpg;base64,{Convert.ToBase64String(user.ProfilePicture)}"
+            : "~/path/to/default/image.jpg";
+
+            <tr>
+                <td class="align-middle text-center">
+                    <span>
+                        <img src="@imageSrc" alt="profile-user" class="avatar avatar-md rounded-circle">
+                    </span>
+                </td>
+                <td>@user.Email</td>
+                <td>
+                    @(user.IsApproved ? "Yes" : "No")
+                </td>
+                <td class="text-center align-middle">
+                    <div class="btn-group align-top">
+                        @if (!user.IsApproved)
+                        {
+                            <a asp-action="ApproveUser" asp-route-userId="@user.Id" class="btn btn-primary">Approve</a>
+                        }
+                        <button class="btn btn-sm btn-primary badge" asp-action="ViewUserWorkingHours" asp-route-userId="@user.Id" asp-controller="Admin">
+                            <i class="fa fa-Time"></i>
+                        </button>
+                        <button type="button" data-user-id="@user.Id" class="btn btn-sm btn-primary badge delete-user-btn">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,93 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+	ViewData["Title"] = "Register confirmation";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+	.wrapper {
+		display: inline-block; /* Display the wrapper as an inline block */
+		width: max-content; /* Set the width to match the table's content */
+	}
+
+	.title-container {
+		background-color: floralwhite; /* Set the background color */
+		padding: 10px; /* Add some padding for spacing */
+		border-radius: 5px; /* Apply rounded corners */
+		text-align: center; /* Center align the content */
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for depth */
+		font-size:20px;
+	}
+
+	.title {
+		margin: 0; /* Reset margin to remove default spacing */
+		color: #333; /* Set the text color */
+		font-size: 22px; /* Adjust the font size */
+		font-weight: bold; /* Apply bold style */
+		letter-spacing: 2px; /* Add letter spacing for emphasis */
+	}
+
+	.image-container {
+		width: 100px; /* Set the desired width */
+		height: 100px; /* Set the desired height */
+		border-radius: 50%; /* Make the container circular */
+		overflow: hidden; /* Hide any overflow */
+	}
+
+		.image-container img {
+			width: 100%; /* Make the image fill the container width */
+			height: 100%; /* Make the image fill the container height */
+			object-fit: cover; /* Maintain the image's aspect ratio and fill the container */
+			border-radius: 50%; /* Make the image circular */
+		}
+
+</style>
+
+<div class="wrapper">
+    <div class="title-container">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+
+    <br>
+</div>
+
+
+@{
+	if (@Model.DisplayConfirmAccountLink)
+	{
+		<p>
+            <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#deleteModal" style="color:white">Confirm </a>
+		</p>
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Registration Confirmation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to Registeruser via this Email?</p>
+                        <strong>Email:</strong> @Model.Email<br />
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <a class= "btn btn-success" id="confirm-link" href="@Model.EmailConfirmationUrl">Success </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+	}
+	else
+	{
+		<p>
+			Please check your email to confirm your account.
+		</p>
+	}
+}
+

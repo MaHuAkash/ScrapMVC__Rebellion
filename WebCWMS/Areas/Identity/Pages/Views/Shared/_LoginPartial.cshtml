@@ -1,0 +1,486 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebCWMS.Models;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+	var userId = UserManager.GetUserId(User);
+	ApplicationUser user = await UserManager.FindByIdAsync(userId);
+	string imageBase64 = null;
+	string imageSrc = null;
+
+	if (user?.ProfilePicture != null && user.ProfilePicture.Length > 0)
+	{
+		imageBase64 = Convert.ToBase64String(user.ProfilePicture);
+		imageSrc = String.Format("data:image/jpg;base64,{0}", imageBase64);
+	}
+	else
+	{
+		// Default image if the user has no profile picture
+		imageSrc = "~/path/to/default/image.jpg";
+	}
+}
+
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+
+	<!-- META DATA -->
+	<meta charset="UTF-8">
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Volgh - Codeigniter Bootstrap 5 Admin Template">
+	<meta name="author" content="SPRUKO™">
+	<meta name="keywords" content="codeigniter dashboard template, codeigniter dashboard, codeigniter bootstrap, codeigniter admin panel, codeigniter admin dashboard, codeigniter php template, codeigniter admin template Bootstrap 5, codeigniter bootstrap template, codeigniter admin dashboard template, mvc admin template, codeigniter mvc, codeigniter template bootstrap, php codeigniter template, codeigniter mvc template, codeigniter bootstrap 5 admin template">
+
+	<!-- FAVICON -->
+	<link rel="shortcut icon" type="image/x-icon" href="~/assets/images/brand/favicon.ico" />
+
+	<!-- TITLE -->
+	<title>Volgh - Codeigniter Bootstrap 5 Admin Template</title>
+
+	<!-- BOOTSTRAP CSS -->
+	<link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<!-- CALENDAR CSS -->
+	<link href="~/assets/plugins/calendar/clndr.css" rel="stylesheet" />
+
+
+	<!-- STYLE CSS -->
+	<link href="~/assets/css/style.css" rel="stylesheet" />
+	<link href="~/assets/css/skin-modes.css" rel="stylesheet" />
+	<link href="~/assets/css/dark-style.css" rel="stylesheet" />
+
+
+	<!-- COLOR SKIN CSS -->
+	<link id="theme" rel="stylesheet" type="text/css" media="all" href="~/assets/colors/color1.css" />
+
+
+
+
+	<!-- P-scroll bar css-->
+	<link href="~/assets/plugins/p-scroll/perfect-scrollbar.css" rel="stylesheet" />
+
+	<!--- FONT-ICONS CSS -->
+	<link href="~/assets/css/icons.css" rel="stylesheet" />
+
+	<!-- SIDEBAR CSS -->
+	<link href="~/assets/plugins/sidebar/sidebar.css" rel="stylesheet">
+	<link href="~/assets/plugins/sweet-alert/sweetalert.css" rel="stylesheet" />
+
+
+	<!-- COLOR SKIN CSS -->
+	<link id="theme" rel="stylesheet" type="text/css" media="all" href="assets/colors/color1.css" />
+
+	<!-- SWITCHER SKIN CSS -->
+	<link href="~/assets/switcher/css/switcher.css" rel="stylesheet">
+	<link href="~/assets/switcher/demo.css" rel="stylesheet">
+
+</head>
+
+<body>
+	@if (SignInManager.IsSignedIn(User))
+	{
+
+
+		<!-- GLOBAL-LOADER -->
+		<div id="global-loader">
+			<img src="~/assets/images/loader.svg" class="loader-img" alt="Loader">
+		</div>
+		<!-- /GLOBAL-LOADER -->
+		<!-- PAGE -->
+		<div class="page">
+			<div class="page-main">
+
+
+				<!-- HEADER -->
+				<div class="header hor-header">
+					<div class="container">
+						<div class="d-flex">
+							<a class="animated-arrow hor-toggle horizontal-navtoggle"><span></span></a>
+							<div class="">
+								<a class="header-brand1" href="index.html">
+									<img src="~/assets/images/brand/logo-3.png" class="header-brand-img desktop-logo" alt="logo" id="change-image">
+									<img src="~/assets/images/brand/logo.png" class="header-brand-img light-logo" alt="logo">
+								</a><!-- LOGO -->
+							</div>
+							<div class="d-flex  ms-auto header-right-icons header-search-icon">
+								<div class="dropdown d-md-flex">
+									<a class="nav-link icon full-screen-link nav-link-bg">
+										<i class="fe fe-maximize fullscreen-button"></i>
+									</a>
+								</div><!-- FULL-SCREEN -->
+								<div class="dropdown profile-1">
+									<a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex">
+										<span>
+											<img src="@imageSrc" alt="profile-user" class="avatar profile-user brround cover-image">
+										</span>
+									</a>
+									<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+										<div class="drop-heading">
+											<div class="text-center">
+												<form class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+													<button class="dropdown-item" type="submit">
+														<i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
+													</button>
+												</form>
+
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<div class="dropdown d-md-flex header-settings">
+									<a href="#" class="nav-link icon " data-bs-toggle="sidebar-right" data-bs-target=".sidebar-right">
+										<i class="fe fe-align-right"></i>
+									</a>
+								</div><!-- SIDE-MENU -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End HEADER -->
+				<!--/Horizontal-main -->
+				<div class="sticky">
+					<div class="horizontal-main hor-menu clearfix">
+						<div class="horizontal-mainwrapper container clearfix">
+							<!--Nav-->
+							<nav class="horizontalMenu clearfix">
+								<ul class="horizontalMenu-list" style="text-align:center">
+									<li><a asp-action="Index" asp-controller="Project" class=""><i class="ti-package"></i> Projects</a></li>
+									<li>
+										<a asp-action="Index" asp-controller="Blog" class="sub-icon"><i class="ti-layers"></i> Blogs </a>
+									</li>
+									<li>
+										<a href="#" class="sub-icon"><i class="ti-User"></i> Dashboard <i class="fa fa-angle-down horizontal-icon"></i></a>
+										<ul class="sub-menu">
+											<li><a asp-action="SuperadminDashboard" asp-controller="Admin">Admin Dashboard</a></li>
+											<li><a asp-action="UserList" asp-controller="Admin">User List</a></li>
+										</ul>
+									</li>
+
+									<li>
+										<a asp-action="Index" asp-controller="Avenue"class="sub-icon"><i class="ti-shield"></i> Avenue </a>
+									</li>
+									<li>
+										<a asp-action="Index" asp-controller="Category" class="sub-icon"><i class="ti-shield"></i> Category </a>
+									</li>
+
+								</ul>
+							</nav>
+							<!--Nav-->
+						</div>
+					</div>
+				</div>
+				<!--/Horizontal-main -->
+				<!-- Mobile Header -->
+				<div class="mobile-header hor-mobile-header">
+					<div class="container">
+						<div class="d-flex">
+							<a class="animated-arrow hor-toggle horizontal-navtoggle"><span></span></a>
+							<a class="header-brand" href="index.html">
+								<img src="~/BuilderBullConceptsLtd.png" class="header-brand-img desktop-logo" alt="logo">
+								<img src="~/BuilderBullConceptsLtd.png" class="header-brand-img desktop-logo mobile-light" alt="logo">
+							</a>
+							<div class="d-flex order-lg-2 ms-auto header-right-icons">
+								<div class="dropdown profile-1">
+									<a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex">
+										<span>
+											<img src="@imageSrc" alt="profile-user" class="avatar  profile-user brround cover-image">
+										</span>
+									</a>
+									<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+										<div class="drop-heading">
+											<div class="text-center">
+												<a class="dropdown-item" href="login.html">
+													<i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="dropdown d-md-flex header-settings">
+									<a href="#" class="nav-link icon " data-bs-toggle="sidebar-right" data-bs-target=".sidebar-right">
+										<i class="fe fe-align-right"></i>
+									</a>
+								</div><!-- SIDE-MENU -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /Mobile Header -->
+				<!--app-content open-->
+				<div class="container app-content">
+
+
+
+					@if (TempData["SuccessMessage"] != null)
+					{
+						<div class="alert alert-success">
+							<b>Success:</b>@TempData["successMessage"]
+							<button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+						</div>
+					}
+
+					@if (TempData["ErrorMessage"] != null)
+					{
+						<div class="alert alert-danger">
+							<b>Error:</b>@TempData["errorMessage"]
+							<button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+						</div>
+					}
+					@RenderBody()
+				</div>
+			</div>
+
+			<!-- SIDE-BAR -->
+			<div class="sidebar sidebar-right sidebar-animate">
+				<div class="p-4 border-bottom">
+					<span class="fs-17">Notifications</span>
+					<a href="#" class="sidebar-icon text-end float-end" data-bs-toggle="sidebar-right" data-bs-target=".sidebar-right"><i class="fe fe-x"></i></a>
+				</div>
+				<div class="list d-flex align-items-center border-bottom p-4">
+					<div class="">
+						<span class="avatar bg-primary brround avatar-md">CH</span>
+					</div>
+					<div class="wrapper w-100 ms-3">
+						<p class="mb-0 d-flex">
+							<b>New Websites is Created</b>
+						</p>
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="d-flex align-items-center">
+								<i class="mdi mdi-clock text-muted me-1"></i>
+								<small class="text-muted ms-auto">30 mins ago</small>
+								<p class="mb-0"></p>
+							</div>
+						</div>
+					</div>
+				</div><!-- LIST END -->
+				<div class="list d-flex align-items-center border-bottom p-4">
+					<div class="">
+						<span class="avatar bg-danger brround avatar-md">N</span>
+					</div>
+					<div class="wrapper w-100 ms-3">
+						<p class="mb-0 d-flex">
+							<b>Prepare For the Next Project</b>
+						</p>
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="d-flex align-items-center">
+								<i class="mdi mdi-clock text-muted me-1"></i>
+								<small class="text-muted ms-auto">2 hours ago</small>
+								<p class="mb-0"></p>
+							</div>
+						</div>
+					</div>
+				</div><!-- LIST END -->
+				<div class="list d-flex align-items-center border-bottom p-4">
+					<div class="">
+						<span class="avatar bg-info brround avatar-md">S</span>
+					</div>
+					<div class="wrapper w-100 ms-3">
+						<p class="mb-0 d-flex">
+							<b>Decide the live Discussion Time</b>
+						</p>
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="d-flex align-items-center">
+								<i class="mdi mdi-clock text-muted me-1"></i>
+								<small class="text-muted ms-auto">3 hours ago</small>
+								<p class="mb-0"></p>
+							</div>
+						</div>
+					</div>
+				</div><!-- LIST END -->
+				<div class="list d-flex align-items-center border-bottom p-4">
+					<div class="">
+						<span class="avatar bg-warning brround avatar-md">K</span>
+					</div>
+					<div class="wrapper w-100 ms-3">
+						<p class="mb-0 d-flex">
+							<b>Team Review meeting</b>
+						</p>
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="d-flex align-items-center">
+								<i class="mdi mdi-clock text-muted me-1"></i>
+								<small class="text-muted ms-auto">4 hours ago</small>
+								<p class="mb-0"></p>
+							</div>
+						</div>
+					</div>
+				</div><!-- LIST END -->
+				<div class="list d-flex align-items-center border-bottom p-4">
+					<div class="">
+						<span class="avatar bg-success brround avatar-md">R</span>
+					</div>
+					<div class="wrapper w-100 ms-3">
+						<p class="mb-0 d-flex">
+							<b>Prepare for Presentation</b>
+						</p>
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="d-flex align-items-center">
+								<i class="mdi mdi-clock text-muted me-1"></i>
+								<small class="text-muted ms-auto">1 days ago</small>
+								<p class="mb-0"></p>
+							</div>
+						</div>
+					</div>
+				</div><!-- LIST END -->
+				<div class="list d-flex align-items-center border-bottom p-4">
+					<div class="">
+						<span class="avatar bg-pink brround avatar-md">MS</span>
+					</div>
+					<div class="wrapper w-100 ms-3">
+						<p class="mb-0 d-flex">
+							<b>Prepare for Presentation</b>
+						</p>
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="d-flex align-items-center">
+								<i class="mdi mdi-clock text-muted me-1"></i>
+								<small class="text-muted ms-auto">1 days ago</small>
+								<p class="mb-0"></p>
+							</div>
+						</div>
+					</div>
+				</div><!-- LIST END -->
+				<div class="list d-flex align-items-center border-bottom p-4">
+					<div class="">
+						<span class="avatar bg-purple brround avatar-md">L</span>
+					</div>
+					<div class="wrapper w-100 ms-3">
+						<p class="mb-0 d-flex">
+							<b>Prepare for Presentation</b>
+						</p>
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="d-flex align-items-center">
+								<i class="mdi mdi-clock text-muted me-1"></i>
+								<small class="text-muted ms-auto">1 day ago</small>
+								<p class="mb-0"></p>
+							</div>
+						</div>
+					</div>
+				</div><!-- LIST END -->
+				<div class="list d-flex align-items-center border-bottom p-4">
+					<div class="">
+						<span class="avatar bg-warning brround avatar-md">L</span>
+					</div>
+					<div class="wrapper w-100 ms-3">
+						<p class="mb-0 d-flex">
+							<b>Prepare for Presentation</b>
+						</p>
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="d-flex align-items-center">
+								<i class="mdi mdi-clock text-muted me-1"></i>
+								<small class="text-muted ms-auto">1 day ago</small>
+								<p class="mb-0"></p>
+							</div>
+						</div>
+					</div>
+				</div><!-- LIST END -->
+				<div class="list d-flex align-items-center p-4">
+					<div class="">
+						<span class="avatar bg-blue brround avatar-md">U</span>
+					</div>
+					<div class="wrapper w-100 ms-3">
+						<p class="mb-0 d-flex">
+							<b>Prepare for Presentation</b>
+						</p>
+						<div class="d-flex justify-content-between align-items-center">
+							<div class="d-flex align-items-center">
+								<i class="mdi mdi-clock text-muted me-1"></i>
+								<small class="text-muted ms-auto">2 days ago</small>
+								<p class="mb-0"></p>
+							</div>
+						</div>
+					</div>
+				</div><!-- LIST END -->
+			</div>
+			<!-- SIDE-BAR CLOSED -->
+			<!-- FOOTER -->
+			<footer class="footer">
+				<div class="container">
+					<div class="row align-items-center flex-row-reverse">
+						<div class="col-md-12 col-sm-12 text-center">
+							Copyright © 2021 <a href="#">Volgh</a>. Designed by <a href="#">  Spruko Technologies Pvt.Ltd </a> All rights reserved.
+						</div>
+					</div>
+				</div>
+			</footer>
+			<!-- FOOTER CLOSED -->
+		</div>
+	}
+
+	<!-- BACK-TO-TOP -->
+	<a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+	<!-- JQUERY JS -->
+	<script src="~/assets/js/jquery.min.js"></script>
+
+	<script src="~/assets/js/sweet-alert.js"></script>
+	<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+
+
+	<!-- BOOTSTRAP JS -->
+	<script src="~/assets/plugins/bootstrap/js/popper.min.js"></script>
+	<script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- RATING STAR JS-->
+	<script src="~/assets/plugins/rating/jquery.rating-stars.js"></script>
+
+	<!-- INPUT MASK JS-->
+	<script src="~/assets/plugins/input-mask/jquery.mask.min.js"></script>
+
+	<!-- HORIZONTAL-MENU JS -->
+	<script src="~/assets/plugins/horizontal-menu/horizontal-menu.js"></script>
+
+	<!-- STICKY JS -->
+	<script src="~/assets/js/stiky.js"></script>
+
+	<!-- SWITCHER JS -->
+	<script src="~/assets/switcher/js/switcher.js"></script>
+
+
+	<!-- SPARKLINE JS-->
+	<script src="~/assets/js/jquery.sparkline.min.js"></script>
+
+	<!-- CHARTJS CHART JS-->
+	<script src="~/assets/plugins/chart/Chart.bundle.js"></script>
+	<script src="~/assets/plugins/chart/utils.js"></script>
+
+	<!-- ECHART JS-->
+	<script src="~/assets/plugins/echarts/echarts.js"></script>
+
+	<!-- APEXCHART JS -->
+	<script src="~/assets/js/apexcharts.js"></script>
+
+	<!-- INDEX JS -->
+	<script src="~/assets/js/index1.js"></script>
+
+
+	<!-- SIDEBAR JS -->
+	<script src="~/assets/plugins/sidebar/sidebar.js"></script>
+
+	<!-- Perfect SCROLLBAR JS-->
+	<script src="~/assets/plugins/p-scroll/perfect-scrollbar.js"></script>
+	<script src="~/assets/plugins/p-scroll/pscroll-1.js"></script>
+
+	<!-- DEFAULT CALENDAR JS-->
+	<script src="~/assets/plugins/calendar/underscore-min.js"></script>
+	<script src="~/assets/plugins/calendar/moment.js"></script>
+	<script src="~/assets/plugins/calendar/clndr.js"></script>
+	<script src="~/assets/plugins/calendar/demo.js"></script>
+
+	<!-- CUSTOM JS -->
+	<script src="~/assets/js/custom.js"></script>
+
+	<!-- Color Change JS -->
+	<script src="~/assets/js/color-change.js"></script>
+	@if (IsSectionDefined("Scripts"))
+	{
+		RenderSection("Scripts");
+	}
+
+</body>
+
+
+
+
+
+
+
+

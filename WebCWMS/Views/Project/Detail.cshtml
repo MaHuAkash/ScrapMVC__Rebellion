@@ -1,0 +1,165 @@
+﻿@model WebCWMS.Models.Project
+
+<style>
+	.social-share-container {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+		float:left;
+	}
+
+	.social-share-title {
+		font-size: 1rem;
+		font-weight: bold;
+		text-transform: uppercase;
+		color: #333;
+		margin-right: 1rem;
+	}
+
+	.social-icons {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		align-items: center;
+		margin-left:auto
+
+	}
+
+		.social-icons li {
+			margin-right: 10px;
+		}
+
+		.social-icons a {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			color: #ffffff;
+			background-color: #0D6EFD; /* Bootstrap primary color */
+			text-decoration: none;
+			font-size: 1.2rem;
+		}
+
+			.social-icons a:hover {
+				background-color: #0a58ca; /* Bootstrap primary color darkened */
+				color: #ffffff;
+			}
+
+	.bi {
+		display: inline-block;
+		vertical-align: middle;
+	}
+	.custom-image-size {
+		width: 88%;
+		height: 430px;
+		object-fit: fill;
+		display: block; /* Ensure the image behaves as a block-level element */
+		margin: 0 auto;
+	}
+
+	/* Style to center the owl-carousel and limit its height */
+	.owl-carousel {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 80vh; /* Adjust the height as needed */
+		overflow: hidden;
+	}
+
+		/* Style for the images inside the carousel */
+		.owl-carousel img {
+			max-width: 100%;
+			height: auto;
+			display: inline-block;
+		}
+
+
+</style>
+
+<div class="container py-4">
+	<div class="row">
+		<div class="col appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="300">
+			<div class="owl-carousel owl-theme nav-inside nav-inside-edge nav-squared nav-with-transparency nav-dark nav-lg d-block">
+				@if (!string.IsNullOrEmpty(Model.ImageFileNames))
+				{
+					var filenames = Model.ImageFileNames.Split(',');
+					foreach (var filename in filenames.Distinct()) // Ensure no duplicates with .Distinct()
+					{
+						var imagePath = $"~/Image/{filename.Trim()}"; // Trim to remove any accidental whitespace
+						<div class="item">
+							<a href="@Url.Content(imagePath)" class="img-thumbnail border-0 border-radius-0 p-0 d-block magnific-img">
+								<img src="@Url.Content(imagePath)" class="img-fluid border-radius-0" alt="">
+							</a>
+						</div>
+					}
+				}
+			</div>
+		</div>
+	</div>
+	<div class="row pt-4 mt-2 mb-5">
+		<div class="col-md-9">
+			<h2 class="text-color-dark font-weight-bold text-5 mb-4">Project <strong>Description</strong></h2>
+			<p>@Html.Raw(Model.Description)</p> <!-- Replace this line with your project description property -->
+		</div>
+
+		<!-- Project Details Column -->
+		<div class="col-md-3">
+			<h2 class="text-color-dark font-weight-bold text-5 mb-4">Project <strong>Details</strong></h2>
+			<ul class="list-unstyled">
+				<li class="mb-2"><i class="bi bi-person-fill text-primary mr-2"></i> <strong>Client:</strong> @Model.Client</li>
+				<li class="mb-2"><i class="bi bi-calendar-fill text-primary mr-2"></i> <strong>Date:</strong> @Model.CreatedAt.ToString("MMMM yyyy")</li>
+				<li class="mb-2"><i class="bi bi-globe text-primary mr-2"></i> <strong>Project URL:</strong> <a href="http://www.okler.net" target="_blank" class="text-dark">Visit Site</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<hr class="solid" />
+	<div class="social-share-container">
+		<!-- Social Share Icons -->
+		<div class="social-share-container">
+			<ul class="social-icons">
+				<li class="social-icons-facebook">
+					<a href="http://www.facebook.com/" target="_blank" title="Facebook">
+						<i class="bi bi-facebook"></i>
+					</a>
+				</li>
+				<li class="social-icons-instagram">
+					<a href="http://www.instagram.com/" target="_blank" title="Instagram">
+						<i class="bi bi-instagram"></i>
+					</a>
+				</li>
+				<li class="social-icons-instagram">
+					<a href="http://www.Twitter.com/" target="_blank" title="Twitter">
+						<i class="bi bi-twitter"></i>
+					</a>
+				</li>
+
+				<li class="social-icons-linkedin">
+					<a href="http://www.linkedin.com/" target="_blank" title="Linkedin">
+						<i class="bi bi-linkedin"></i>
+					</a>
+				</li>
+			</ul>
+		</div>
+
+	</div>
+</div>
+
+@section Scripts{
+	<script>
+		$(document).ready(function () {
+			$('.owl-carousel').magnificPopup({
+				delegate: 'a.magnific-img', // Ensure this matches the class on your anchor tags
+				type: 'image',
+				gallery: {
+					enabled: true
+				},
+			});
+		});
+	</script>
+}

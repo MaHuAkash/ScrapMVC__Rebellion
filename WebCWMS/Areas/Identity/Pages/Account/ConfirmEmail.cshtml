@@ -1,0 +1,74 @@
+﻿@page
+@model ConfirmEmailModel
+@{
+    ViewData["Title"] = "Confirm email";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<style>
+    .thank-you-message {
+    text-align: center; /* Center the message */
+    padding: 20px; /* Add some padding */
+    margin-top: 20px; /* Add margin at the top */
+    background-color: #f0f0f0; /* Light background color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    animation: fadeIn 2s ease-in-out; /* Apply the fadeIn animation */
+}
+
+.thank-you-message p {
+    margin: 0; /* Remove default margin */
+    color: #2a2a2a; /* Set text color */
+    font-size: 24px; /* Set font size */
+    font-weight: bold; /* Bold text */
+    animation: popIn 1s ease-in-out; /* Apply the popIn animation */
+}
+.thank-you-message {
+    text-align: center;
+    padding: 30px;
+    margin-top: 50px;
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    font-family: 'Arial', sans-serif; /* Use your preferred font */
+}
+
+.status-message {
+    color: #4a4a4a;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.login-button {
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    background-color: #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    /* Adjust as per your preference */
+    font-size: 18px;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+
+</style>
+
+<div class="thank-you-message">
+    @if (Model.StatusMessage != null)
+    {
+        <div class="status-message">@Model.StatusMessage</div>
+    }
+
+    <a href="@Url.Page("/Account/Login", new { area = "Identity" })" class="login-button">Login</a>
+</div>

@@ -1,0 +1,394 @@
+﻿@model WebCWMS.ViewModel.BlogViewModel
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+	/* Apply round shape and cover image and increase the border size */
+
+	/* Apply round shape and cover image, increase the border size, and increase the image size */
+	.img-thumbnail img {
+		object-fit: cover;
+	}
+
+	.comment-block p {
+		word-wrap: break-word;
+	}
+
+
+</style>
+
+
+
+
+<section class="page-header page-header-modern bg-color-light-scale-1 page-header-md">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 align-self-center p-static order-2 text-center">
+				<h1 class="text-dark font-weight-bold text-8">Post Full Width</h1>
+				<span class="sub-title text-dark">Check out our Latest News!</span>
+			</div>
+			<div class="col-md-12 align-self-center order-1">
+				<ul class="breadcrumb d-block text-center">
+					<li><a href="#">Home</a></li>
+					<li class="active">Blog</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="container py-4">
+
+	<div class="row">
+		<div class="col">
+			<div class="blog-posts single-post">
+
+				<article class="post post-large blog-single-post border-0 m-0 p-0">
+					<div class="post-image ms-0">
+						<a href="blog-post.html">
+							<img src="img/blog/wide/blog-11.jpg" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" />
+						</a>
+					</div>
+
+					<div class="post-date ms-0">
+						<span class="day">10</span>
+						<span class="month">Jan</span>
+					</div>
+
+					<div class="post-content ms-0">
+
+						<h2 class="font-weight-semi-bold"><a href="blog-post.html">Class aptent taciti sociosqu ad litora torquent</a></h2>
+
+						<div class="post-meta">
+							<span><i class="far fa-user"></i> By <a href="#">John Doe</a> </span>
+							<span><i class="far fa-folder"></i> <a href="#">Lifestyle</a>, <a href="#">Design</a> </span>
+							<span><i class="far fa-comments"></i> <a href="#">12 Comments</a></span>
+						</div>
+
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lectus lacus, rutrum sit amet placerat et, bibendum nec mauris. Duis molestie, purus eget placerat viverra, nisi odio gravida sapien, congue tincidunt nisl ante nec tellus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sagittis, massa fringilla consequat blandit, mauris ligula porta nisi, non tristique enim sapien vel nisl. Suspendisse vestibulum lobortis dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent nec tempus nibh. Donec mollis commodo metus et fringilla. Etiam venenatis, diam id adipiscing convallis, nisi eros lobortis tellus, feugiat adipiscing ante ante sit amet dolor. Vestibulum vehicula scelerisque facilisis. Sed faucibus placerat bibendum. Maecenas sollicitudin commodo justo, quis hendrerit leo consequat ac. Proin sit amet risus sapien, eget interdum dui. Proin justo sapien, varius sit amet hendrerit id, egestas quis mauris.</p>
+						<p>Ut ac elit non mi pharetra dictum nec quis nibh. Pellentesque ut fringilla elit. Aliquam non ipsum id leo eleifend sagittis id a lorem. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam massa mauris, viverra et rhoncus a, feugiat ut sem. Quisque ultricies diam tempus quam molestie vitae sodales dolor sagittis. Praesent commodo sodales purus. Maecenas scelerisque ligula vitae leo adipiscing a facilisis nisl ullamcorper. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+						<p>Curabitur non erat quam, id volutpat leo. Nullam pretium gravida urna et interdum. Suspendisse in dui tellus. Cras luctus nisl vel risus adipiscing aliquet. Phasellus convallis lorem dui. Quisque hendrerit, lectus ut accumsan gravida, leo tellus porttitor mi, ac mattis eros nunc vel enim. Nulla facilisi. Nam non nulla sed nibh sodales auctor eget non augue. Pellentesque sollicitudin consectetur mauris, eu mattis mi dictum ac. Etiam et sapien eu nisl dapibus fermentum et nec tortor.</p>
+						<p>Curabitur nec nulla lectus, non hendrerit lorem. Quisque lorem risus, porttitor eget fringilla non, vehicula sed tortor. Proin enim quam, vulputate at lobortis quis, condimentum at justo. Phasellus nec nisi justo. Ut luctus sagittis nulla at dapibus. Aliquam ullamcorper commodo elit, quis ornare eros consectetur a. Curabitur nulla dui, fermentum sed dapibus at, adipiscing eget nisi. Aenean iaculis vehicula imperdiet. Donec suscipit leo sed metus vestibulum pulvinar. Phasellus bibendum magna nec tellus fringilla faucibus. Phasellus mollis scelerisque volutpat. Ut sed molestie turpis. Phasellus ultrices suscipit tellus, ac vehicula ligula condimentum et.</p>
+						<p>Aenean metus nibh, molestie at consectetur nec, molestie sed nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec euismod urna. Donec gravida pharetra ipsum, non volutpat ipsum sagittis a. Phasellus ut convallis ipsum. Sed nec dui orci, nec hendrerit massa. Curabitur at risus suscipit massa varius accumsan. Proin eu nisi id velit ultrices viverra nec condimentum magna. Ut porta orci quis nulla aliquam at dictum mi viverra. Maecenas ultricies elit in tortor scelerisque facilisis. Mauris vehicula porttitor lacus, vel pretium est semper non. Ut accumsan rhoncus metus non pharetra. Quisque luctus blandit nisi, id tempus tellus pulvinar eu. Nam ornare laoreet mi a molestie. Donec sodales scelerisque congue. </p>
+						<!-- Add a button or any element that triggers the AJAX call -->
+						<!-- Example link to trigger the showBlogDetails function -->
+
+
+
+						<div class="post-block mt-5 post-share">
+							<h4 class="mb-3">Share this Post</h4>
+
+						</div>
+
+						<div class="post-block mt-4 pt-2 post-author">
+							<h4 class="mb-3">Author</h4>
+							<div class="img-thumbnail img-thumbnail-no-borders d-block pb-3">
+								<a href="blog-post.html">
+									<img src="img/avatars/avatar.jpg" alt="">
+								</a>
+							</div>
+							<p><strong class="name"><a href="#" class="text-4 pb-2 pt-2 d-block">John Doe</a></strong></p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim ornare nisi, vitae mattis nulla ante id dui. </p>
+						</div>
+
+						<div id="comments" class="post-block mt-5 post-comments">
+							<h4 class="mb-3">Comments (@Model.Comments.Count())</h4>
+							@if (Model.Comments != null && Model.Comments.Any())
+							{
+
+								<ul class="comments reply">
+									@foreach (var comment in Model.Comments.Take(3))
+									{
+										<li>
+											<div class="comment">
+												<div class="img-thumbnail img-thumbnail-no-borders d-none d-sm-block">
+													<img src="~/image/@comment.ImageName" asp-append-version="true" width="50" height="50" />
+												</div>
+												<div class="comment-block section section-default bg-color-light-scale-2">
+													<div class="comment-arrow"></div>
+													<span class="comment-by heading text-primary heading-border heading-bottom-border">
+														<strong>@comment.Name</strong>
+														<span class="float-end">
+															<span>
+																<a href="#" class="reply-button" data-blogid="@Model.Id" data-commentid="@comment.Id">
+																	<i class="bi bi-reply-fill" style="font-size:140%"></i>
+																</a>
+															</span>
+															<span style="margin-left:20px;">
+																<!-- Assuming you have Bootstrap and jQuery libraries included in your HTML -->
+																<a href="#" class="heading text-secondary heading-border heading-bottom-border" onclick="showCommentDetails(@comment.Id)"><i class="bi bi-trash-fill" style="font-size:120%"></i></a>
+															</span>
+
+														</span>
+													</span>
+													<p>@comment.Content</p>
+													<span class="date float-end">@comment.CreatedAt.ToString("MMMM dd, yyyy 'at' h:mm tt")</span>
+												</div>
+											</div>
+
+											<ul class="comments reply" id="replies-@comment.Id">
+												@if (comment.Replies != null && comment.Replies.Any())
+												{
+													@foreach (var reply in comment.Replies.Take(3)) // Display the first 3 replies initially
+													{
+														<li>
+															<div class="comment">
+																<div class="img-thumbnail border-0 p-0 d-none d-md-block">
+																	<img src="@("~/image/" + @reply.ImageName)" asp-append-version="true" class="avatar rounded-circle" />
+																</div>
+																<div class="comment-block section section-default bg-color-light-scale-2">
+																	<div class="comment-arrow"></div>
+																	<span class="comment-by">
+																		<strong>@reply.Name</strong>
+																	</span>
+																	<p>@reply.Content</p>
+																	<span class="date float-end">@reply.CreatedAt.ToString("MMMM dd, yyyy 'at' h:mm tt")</span>
+																</div>
+															</div>
+														</li>
+													}
+												}
+
+											</ul>
+
+
+											<div class="row">
+												<div class="col-md-6 ">
+													@if (comment.Replies != null && comment.Replies.Count() >= 3)
+													{
+
+														<a class="btn btn-primary btn-circle btn-sm  show-older-replies-button" data-comment-id="@comment.Id" data-current-page="1" style="display: none;">
+															ShowOldReplies
+														</a>
+													}
+												</div>
+
+
+												<div class="col-md-6 text-end">
+													@if (comment.Replies != null && comment.Replies.Count() >= 3)
+													{
+
+														<a class="btn btn-primary btn-circle btn-sm load-more-replies-button" data-comment-id="@comment.Id" data-current-page="1">
+															LoadMoreReplies
+														</a>
+													}
+												</div>
+											</div>
+										</li>
+									}
+								</ul>
+								<div class="row">
+									<div class="col-md-6">
+										@if (Model.Comments != null && Model.Comments.Count() >= 3)
+										{
+											<a class="btn btn-primary btn-circle btn-sm show-older-comment-button" data-blog-id="@Model.Id" data-current-page="1" style="display: none;">
+												Show Older Comments
+											</a>
+										}
+									</div>
+
+
+									<div class="col-md-6 text-end">
+										@if (Model.Comments != null && Model.Comments.Count() > 3)
+										{
+
+											<a class="btn btn-primary btn-circle btn-sm load-more-comment-button" data-blog-id="@Model.Id" data-current-page="1">
+												LoadMoreComment
+											</a>
+										}
+									</div>
+								</div>
+
+							}
+
+						</div>
+					</div>
+				</article>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+@section Scripts {
+
+
+	<script>
+		// Function to load more replies for a comment
+		function loadMoreReplies(commentId, page) {
+			$.ajax({
+				url: `/Reply/GetRepliesByCommentId/${commentId}/${page}`,
+				type: "GET",
+				dataType: "json",
+				success: function (data) {
+					console.log("Received data:", data);
+
+					const repliesList = $("#replies-" + commentId);
+					repliesList.empty(); // Clear the previous replies before appending new ones
+
+					data.forEach(reply => {
+						const replyHtml = `
+												<li>
+													<div class="comment">
+														<div class="img-thumbnail img-thumbnail-no-borders d-none d-sm-block">
+															<img src="/image/${reply.imageName}" width="50" height="50" />
+														</div>
+														<div class="comment-block">
+															<div class="comment-arrow"></div>
+															<span class="comment-by">
+																<strong>${reply.name}</strong>
+															</span>
+															<p>${reply.content}</p>
+															<span class="date float-end">${new Date(reply.createdAt).toLocaleString()}</span>
+														</div>
+													</div>
+												</li>
+											`;
+
+						repliesList.append(replyHtml);
+					});
+
+					// Show or hide the "Load More Replies" button based on the current page
+					const loadMoreButton = $(".load-more-replies-button");
+					loadMoreButton.toggle(data.length >= 3);
+
+					// Show or hide the "Show Older Replies" button based on the current page
+					const showOlderButton = $(".show-older-replies-button");
+					showOlderButton.toggle(page > 1);
+
+				},
+				error: function (error) {
+					console.error("Error loading more replies:", error);
+				}
+			});
+		}
+
+		// Event handler for "Load More Replies" button
+		$(document).on("click", ".load-more-replies-button", function (e) {
+			e.preventDefault();
+			var commentId = $(this).data("comment-id");
+			var currentPage = $(this).data("current-page");
+			loadMoreReplies(commentId, currentPage + 1);
+
+			// Update the current page number in both buttons' data attributes and the HTML
+			currentPage = currentPage + 1;
+			$(".load-more-replies-button").data("current-page", currentPage).attr("data-current-page", currentPage);
+			$(".show-older-replies-button").data("current-page", currentPage).attr("data-current-page", currentPage);
+		});
+
+
+		// Event handler for "Show Older Replies" button
+		$(document).on("click", ".show-older-replies-button", function (e) {
+			e.preventDefault();
+			var commentId = $(this).data("comment-id");
+			var currentPage = $(this).data("current-page");
+			loadMoreReplies(commentId, currentPage - 1);
+
+			// Update the current page number in both buttons' data attributes and the HTML
+			currentPage = currentPage - 1;
+			$(".show-older-replies-button").data("current-page", currentPage).attr("data-current-page", currentPage);
+			$(".load-more-replies-button").data("current-page", currentPage).attr("data-current-page", currentPage);
+		});
+
+
+	</script>
+
+	<script>
+		$(document).ready(function () {
+			// Attach a click event to the "Reply" links with the class "reply-button"
+			$(".reply-button").click(function () {
+				// Check if the commentId and blogId are available as data attributes on the link
+				var commentId = $(this).data("commentid");
+				var blogId = $(this).data("blogid");
+
+				// Check if both commentId and blogId are valid (assuming valid IDs are positive integers)
+				if (commentId && Number.isInteger(commentId) && commentId > 0 && blogId && Number.isInteger(blogId) && blogId > 0) {
+					// Redirect to the AddReply action in the CommentController with both commentId and blogId as parameters
+					window.location.href = '/Comment/AddReply?commentId=' + commentId + '&blogId=' + blogId;
+				} else {
+					// Show an error message or handle the situation accordingly
+					alert('Invalid commentId or blogId.');
+				}
+
+				// Prevent the default link behavior (to avoid page refresh or navigation)
+				return false;
+			});
+		});
+	</script>
+
+	<script>
+		var currentCommentId; // Declare a global variable to store the current commentId
+
+		function showCommentDetails(commentId) {
+			$.ajax({
+				type: 'GET',
+				url: `/api/comment/${commentId}`, // Use the GetCommentJson API endpoint for fetching comment details in JSON format
+				success: function (result) {
+					// Assuming result contains the necessary data for the comment details
+					// Modify the code to display the data in a modal or popup
+					$('#commentName').text(result.name);
+					$('#commentContentModal').text(result.content);
+					$('#commentEmail').text(result.email);
+					var imageURL = '/image/' + result.imageName;
+					$('#commentImage').attr('src', imageURL);
+
+					// Add any other properties of the comment that you want to display
+
+					// Save the commentId to the global variable
+					currentCommentId = commentId;
+
+					// Show the modal
+					$('#commentDetailsModal').modal('show');
+				},
+				error: function () {
+					alert('Only Admin Can Delete Comments.');
+				}
+			});
+		}
+
+		// Function to handle the comment deletion
+		function deleteCommentConfirmed() {
+			if (confirm('Are you sure you want to delete this comment?')) {
+				// Use the currentCommentId from the global variable
+				var commentId = currentCommentId;
+
+				$.ajax({
+					type: 'POST',
+					url: `/Comment/DeleteCommentConfirmed/${commentId}`,
+					success: function () {
+						// Close the modal
+						$('#commentDetailsModal').modal('hide');
+						// Refresh the page after the modal is closed
+						location.reload();
+					},
+					error: function () {
+						// Close the modal on error as well
+						$('#commentDetailsModal').modal('hide');
+						// Refresh the page after the modal is closed
+						location.reload();
+					}
+				});
+			}
+		}
+
+		// Function to handle modal close event
+		$('#commentDetailsModal').on('hidden.bs.modal', function (e) {
+			// Refresh the page after the modal is closed
+			location.reload();
+		});
+	</script>
+
+	}
+
+<!-- Render the partial view and pass the commentId to it -->
+<partial name="~/Views/Comment/_CommentDetailsModal.cshtml" />
+
+
+
+
+
+
+
+
+
+

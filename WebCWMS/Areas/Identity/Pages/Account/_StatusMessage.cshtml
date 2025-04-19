@@ -1,0 +1,28 @@
+﻿@model string
+@{
+	Layout = "~/Areas/Identity/Pages/Views/Shared/_LoginPartial.cshtml";
+}
+
+
+@if (!String.IsNullOrEmpty(Model))
+{
+    var statusMessageClass = Model.StartsWith("Error") ? "danger" : "success";
+    <div class="alert alert-@statusMessageClass alert-dismissible" role="alert">
+		@if (TempData["SuccessMessage"] != null)
+		{
+			<div class="alert alert-success">
+				<b>Success:</b>@TempData["successMessage"]
+				<button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+			</div>
+		}
+
+		@if (TempData["ErrorMessage"] != null)
+		{
+			<div class="alert alert-danger">
+				<b>Error:</b>@TempData["errorMessage"]
+				<button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+			</div>
+		}
+			@Model
+    </div>
+}

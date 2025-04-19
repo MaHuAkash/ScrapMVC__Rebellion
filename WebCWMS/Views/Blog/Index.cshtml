@@ -1,0 +1,172 @@
+﻿@using System.IO;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
+@model X.PagedList.IPagedList<WebCWMS.ViewModel.BlogViewModel>
+
+@{
+	Layout = "~/Areas/Identity/Pages/Views/Shared/_LoginPartial.cshtml";
+}
+@{
+	ViewData["Title"] = "Blog list";
+
+}
+
+
+<br />
+<a class="btn btn-success" asp-controller="Blog" asp-action="CreateOrEdit">Create <i class="fa fa-plus fa-spin ms-2"></i></a>
+<br/>
+
+<div class="row">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-header bg-transparent border-0">
+				<h3 class="card-title">@ViewData["Title"]</h3>
+
+			</div>
+			<div class="">
+				<div class="grid-margin">
+					<div class="">
+						<div class="table-responsive">
+							<table class="table card-table table-vcenter text-nowrap  align-items-center">
+								<thead class="thead-light">
+									<tr>
+										<th>
+											Image
+										</th>
+
+										<th>
+											Client
+										</th>
+
+										<th>
+											Location
+										</th>
+
+										<th>
+											SurfaceArea
+										</th>
+
+										<th>
+											Action
+										</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									@if (Model != null && Model.Any())
+									{
+										@foreach (var BlogViewModel in Model)
+										{
+
+											<tr>
+												<td>
+													<div class="avatar-list">
+														<a data-bs-toggle="tooltip" href="#" data-bs-original-title="" title=""><img alt="Image placeholder" class="avatar avatar-xl brround cover-image" src="@("~/image/" + BlogViewModel.ImageName)" asp-append-version="true"></a>
+													</div>
+												</td>
+												<td>1245</td>
+												<td class="text-sm font-weight-600">Joanne Nash</td>
+												<td>Provide Best Services</td>
+												<td class="text-nowrap">July 2, 2018</td>
+												<td>
+													<div class="btn-list">
+														<a asp-controller="Blog" asp-action="CreateOrEdit" asp-route-id="@BlogViewModel.Id" class="btn btn-success"><i class="fa fa-edit"></i></a>
+
+														<button type="button" onclick="showBlogDetails('@Html.Raw(BlogViewModel.Id)')" class="btn btn-icon  btn-danger"><i class="fe fe-trash"></i></button>
+													</div>
+
+												</td>
+											</tr>
+										}
+									}
+									else
+									{
+										<tr class="tr-1">
+											<td colspan="8">
+												<div>
+													<h6 style="text-align:center;">
+														No projects available at the moment!
+													</h6>
+												</div>
+											</td>
+										</tr>
+									}
+
+
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<form>
+	<div class="pagination">
+		<ul class="pagination justify-content-center">
+			@if (Model.PageCount > 1)
+			{
+				@if (Model.HasPreviousPage)
+				{
+					<li class="page-item">
+						<a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1 })">&lt;</a>
+					</li>
+				}
+
+				<li class="page-item active">
+					<a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber })">@Model.PageNumber</a>
+				</li>
+
+				@if (Model.HasNextPage)
+				{
+					<li class="page-item">
+						<a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1 })">&gt;</a>
+					</li>
+				}
+
+
+				<li class="page-item disabled">
+					<span class="page-link">@($"Page {Model.PageNumber} of {Model.PageCount}")</span>
+				</li>
+			}
+		</ul>
+	</div>
+</form>
+
+@section Scripts {
+
+	<script>
+		function showBlogDetails(blogId) {
+			$.ajax({
+				type: 'GET',
+				url: '/Blog/Popup',
+				data: { id: blogId },
+				success: function (result) {
+					$('#blogTitle').text(result.title);
+					$('#blogDescription').text(result.description);
+
+					var imageURL = '/image/' + result.imageName;
+					$('#blogImage').attr('src', imageURL);
+					$('#blogDetailsPopup').modal('show');
+
+				},
+				error: function () {
+					alert('Error occurred while fetching blog details.');
+				}
+			});
+
+			return false;
+		}
+	</script>
+	<partial name="_BlogDetailsPartial" />
+}
+
+
+
+
+
+
+

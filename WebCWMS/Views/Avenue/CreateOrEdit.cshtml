@@ -1,0 +1,110 @@
+﻿@model WebCWMS.Models.Avenue
+@{
+    Layout = "~/Areas/Identity/Pages/Views/Shared/_LoginPartial.cshtml";
+}
+@{
+    ViewData["Title"] = Model != null && Model.Id == 0 ? "Create Avenue" : "Edit Avenue";
+}
+
+<style>
+    /* Custom styles for the select dropdown */
+    .select2-container--default .select2-selection--single {
+        height: 38px;
+        padding: 8px 12px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+    }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 22px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 36px;
+        }
+</style>
+
+<form method="post" action="CreateOrEdit">
+    <div class="card">
+        <div class="card-header bg-info">
+            @ViewData["Title"]
+        </div>
+        <div class="card-body">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label class="control-label">Province:</label>
+                <select asp-for="ProvinceId" asp-items="ViewBag.Provinces" class="form-control" id="ProvinceId"></select>
+                <span class="text-danger">@Html.ValidationMessageFor(model => model.ProvinceId)</span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">City</label>
+                <select asp-for="CityId" asp-items="ViewBag.Cities" class="form-control" id="CityId"></select>
+                <span class="text-danger">@Html.ValidationMessageFor(model => model.CityId)</span>
+            </div>
+
+            <div class="form-floating mb-2">
+                <input asp-for="AvenueName" class="form-control" />
+                <label asp-for="AvenueName"></label>
+                <span asp-validation-for="AvenueName" class="text-danger"></span>
+            </div>
+        </div>
+
+        @if (Model != null && Model.Id == 0)
+        {
+            <div class="col-lg-12 d-grid">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        }
+        else
+        {
+            <div class="col-lg-12 d-grid">
+                <button type="submit" class="btn btn-success">Update</button>
+            </div>
+        }
+    </div>
+</form>
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+
+            // Load the cities based on the initial selected province ID
+            loadCities($('#ProvinceId').val());
+
+            // Handle province selection change event
+            $('#ProvinceId').change(function () {
+                var selectedProvinceId = $(this).val();
+
+                // Load the cities based on the selected province ID
+                loadCities(selectedProvinceId);
+            });
+
+            // Function to load cities based on the selected province ID
+            function loadCities(provinceId) {
+                $.ajax({
+                    url: '/Avenue/GetCitiesByProvince',
+                    type: 'GET',
+                    data: { provinceId: provinceId },
+                    success: function (result) {
+                        // Clear the current city options
+                        $('#CityId').empty();
+
+                        // Add the new city options
+                        $.each(result, function (index, city) {
+                            $('#CityId').append($('<option></option>').val(city.value).text(city.text));
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

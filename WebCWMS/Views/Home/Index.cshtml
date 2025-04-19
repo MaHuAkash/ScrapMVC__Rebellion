@@ -1,0 +1,258 @@
+﻿@model IEnumerable<WebCWMS.ViewModel.BlogViewModel>
+
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+
+	/* Apply animation to the elements */
+	.appear-animation {
+		animation-name: fadeInSlowly;
+		animation-duration: 2s; /* Adjust the duration as per your preference */
+		animation-timing-function: ease-in-out;
+	}
+
+	.text-8 {
+		font-size: 24px;
+		/* Add other necessary styles here */
+	}
+
+	.text-color-primary {
+		color: #007bff;
+		/* Add other necessary styles here */
+	}
+
+	/* Apply animation to the elements */
+	.toggle-content {
+		animation-name: slideInFromRight;
+		animation-duration: 1.5s; /* Adjust the duration as per your preference */
+		animation-timing-function: ease-in-out;
+	}
+
+	.custom-image-size {
+		width: 100%;
+		height: 215px;
+		object-fit: cover;
+	}
+
+	.toggle-content {
+		display: none;
+	}
+
+</style>
+<br />
+<br />
+<br />
+
+<div class="container">
+	<div class="row align-items-center">
+		<div class="col-lg-9 text-center text-lg-start">
+			<h2 class="font-weight-bold text-8 line-height-2 appear-animation" data-appear-animation="fadeInSlowly" data-appear-animation-delay="500">
+				<span class="text-5">Hello, we're <span class="text-color-primary">Builderbull Concepts</span> From Surrey City.</span>
+			</h2>
+		</div>
+
+		<div class="col-lg-3 text-center text-lg-end">
+			<a class="btn btn-outline btn-rounded btn-primary btn-with-arrow mb-5 mb-lg-2 appear-animation" data-appear-animation="fadeInSlowly" data-appear-animation-delay="1100" href="#">Contact Us <span><i class="fas fa-chevron-right"></i></span></a>
+		</div>
+	</div>	
+	<div class="row mt-5 py-3">
+		<div class="col-md-6">
+			<div class="toggle toggle-primary toggle-simple m-0" data-plugin-toggle>
+				<section class="toggle mt-0">
+					<a class="toggle-title" onclick="toggleParagraph('vision')">Our Vision</a>
+					<div class="toggle-content" id="vision-content">
+						<p>our vision is to be at the forefront of transformative construction solutions in Surrey City and beyond. We aim to become a recognized industry leader, setting new standards for innovation, sustainability, and excellence in the construction sector. With a commitment to delivering superior quality projects, we envision creating iconic landmarks that stand the test of time and contribute positively to the communities we serve. Our vision is rooted in fostering strong relationships with our clients, partners, and stakeholders, as we work together to shape a brighter and more resilient future for the built environment.</p>
+					</div>
+				</section>
+				<section class="toggle active mt-0">
+					<a class="toggle-title">Our Mission</a>
+					<div class="toggle-content">
+						<p>Our mission at Builderbull Concepts is to deliver construction services that surpass expectations, while upholding the highest standards of professionalism, integrity, and safety. We are dedicated to understanding and meeting the unique needs of each project, providing tailored solutions that align with our clients' goals and aspirations. With an unwavering focus on efficiency and sustainability, we aim to execute every endeavor with precision, utilizing cutting-edge technologies and practices to minimize environmental impact. Through the dedication of our skilled team, we strive to exceed industry norms and consistently deliver projects on time and within budget, earning the trust and satisfaction of our clients. Building on our core values, we are determined to leave a lasting legacy of exceptional construction and enduring partnerships.</p>
+					</div>
+				</section>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="progress-bars" style="margin-top:86px;">
+				<div class="progress-label">
+					<span class="text-1">HTML/CSS</span>
+				</div>
+				<div class="progress mb-2">
+					<div class="progress-bar progress-bar-primary" data-appear-progress-animation="100%">
+						<span class="progress-bar-tooltip">100%</span>
+					</div>
+				</div>
+				<div class="progress-label">
+					<span class="text-1">Design</span>
+				</div>
+				<div class="progress mb-2">
+					<div class="progress-bar progress-bar-secondary" data-appear-progress-animation="85%" data-appear-animation-delay="300">
+						<span class="progress-bar-tooltip">85%</span>
+					</div>
+				</div>
+				<div class="progress-label">
+					<span class="text-1">WordPress</span>
+				</div>
+				<div class="progress mb-2">
+					<div class="progress-bar progress-bar-tertiary" data-appear-progress-animation="75%" data-appear-animation-delay="600">
+						<span class="progress-bar-tooltip">75%</span>
+					</div>
+				</div>
+				<div class="progress-label">
+					<span class="text-1">Photoshop</span>
+				</div>
+				<div class="progress mb-2">
+					<div class="progress-bar progress-bar-quaternary" data-appear-progress-animation="85%" data-appear-animation-delay="900">
+						<span class="progress-bar-tooltip">85%</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<section class="section bg-color-primary border-0 m-0" style="color:white">
+
+	<div class="container">
+		<br />
+		<br />
+		<br />
+
+		<div class="row text-center text-md-start">
+			<div class="col-md-4 mb-4 mb-md-0 appear-animation" data-appear-animation="fadeInLeftShorter" data-appear-animation-delay="200">
+				<div class="row align-items-center justify-content-center justify-content-md-start">
+					<div class="col-4">
+						<img class="img-fluid mb-4 mb-lg-0" src="~/main/img/icons/seo-grey.png" alt="">
+					</div>
+					<div class="col-lg-8">
+						<h2 class="font-weight-bold text-5 line-height-5 mb-1">SEO Optimization</h2>
+						<p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 mb-4 mb-md-0 appear-animation" data-appear-animation="fadeIn">
+				<div class="row align-items-center justify-content-center justify-content-md-start">
+					<div class="col-4">
+						<img class="img-fluid mb-4 mb-lg-0" src="~/main/img/icons/marketing-grey.png" alt="">
+					</div>
+					<div class="col-lg-8">
+						<h2 class="font-weight-bold text-5 line-height-5 mb-1">Pro Marketing Ads</h2>
+						<p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="200">
+				<div class="row align-items-center justify-content-center justify-content-md-start">
+					<div class="col-4">
+						<img class="img-fluid mb-4 mb-lg-0" src="~/main/img/icons/support-grey.png" alt="">
+					</div>
+					<div class="col-lg-8">
+						<h2 class="font-weight-bold text-5 line-height-5 mb-1">Secure Support</h2>
+						<p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br/>
+		<br/>
+	</div>
+</section>
+
+
+
+	<div class="section-angled-layer-bottom bg-dark"></div>
+	<div class="section-angled-content">
+		<div class="container">
+			<div class="row mt-5">
+				<div class="col">
+					<br />
+					<h4>Recent Post</h4>
+					<br />
+					<div class="row">
+						@foreach (var blogViewModel in Model.OrderByDescending(blog => blog.Id).Take(3).ToList())
+						{
+							<div class="col-lg-4">
+								<div class="recent-posts">
+									<article class="post">
+										<div class="post-date">
+											<span class="day">15</span>
+											<span class="month">Jan</span>
+										</div>
+										@{
+											string truncatedTitle = string.Join(" ", @blogViewModel.Title.Split().Take(4));
+											if (@blogViewModel.Title.Split().Length > 4)
+											{
+												truncatedTitle += "...";
+											}
+
+											string truncatedDescription = string.Join(" ", @blogViewModel.Description.Split().Take(25));
+											if (@blogViewModel.Description.Split().Length > 25)
+											{
+												truncatedDescription += "...";
+											}
+										}
+
+										<h4><a href="blog-post.html" class="text-decoration-none">@truncatedTitle</a></h4>
+										<p>@truncatedDescription</p>
+									</article>
+								</div>
+							</div>
+						}
+					</div>
+					<br />
+					<a asp-action="Blog" asp-controller="Blog" class="btn btn-xs btn-primary float-end mb-4">View more...</a>
+				</div>
+			</div>
+
+		</div>
+
+<section class="section bg-color-light border-0 m-0">
+	<div class="container">
+		<br />
+		<br />
+		<h4>Recent Images</h4>
+		<hr class="solid" />
+
+		<div class="row">
+			<div class="col">
+				<div class="owl-carousel owl-theme manual" id="carousel">
+					@foreach (var blogViewModel in Model)
+					{
+
+
+						<div>
+							<img src="@("~/image/" + blogViewModel.ImageName)" asp-append-version="true" class="img-fluid rounded custom-image-size" />
+
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</section>
+@section Scripts{
+		<script>
+			function toggleParagraph(section) {
+				var visionContent = document.getElementById("vision-content");
+
+				if (section === 'vision') {
+					visionContent.style.display = "block";
+				}
+			}
+
+		</script>
+}
+
+
+
+
+
+

@@ -1,0 +1,229 @@
+﻿@using System.IO;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
+@model X.PagedList.IPagedList<WebCWMS.ViewModel.ProjectViewModel>
+@{
+	ViewBag.Title = "Project List";
+}
+<style>
+	/* Apply the animation to the element */
+
+	.animated-li {
+		opacity: 0; /* Start with opacity 0 */
+		animation: fadeIn 1s ease-in-out; /* Define the animation with a 1-second duration */
+	}
+	/* Define the CSS rule to make the li elements visible when expanded */
+	.collapse.show .animated-li {
+		opacity: 1;
+	}
+
+	.portfolio-item {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.project-name {
+		position: absolute;
+		bottom: -100%;
+		left: 0;
+		width: 100%;
+		background-color: rgba(0, 0, 0, 0.8);
+		color: white;
+		text-align: center;
+		padding: 10px;
+		transition: bottom 0.3s ease-in-out;
+	}
+
+	.portfolio-item:hover .project-name {
+		bottom: 0;
+	}
+
+	.custom-image-size {
+		width: 100%;
+		height: 425px;
+		object-fit: fill;
+		display: block; /* Ensure the image behaves as a block-level element */
+		margin: 0 auto;
+	}
+
+	.custom-image-sizess {
+		width: 100%;
+		height: 425px;
+		object-fit: fill;
+		display: block; /* Ensure the image behaves as a block-level element */
+	}
+
+	.project-item {
+		overflow: hidden;
+		position: relative;
+	}
+
+		.project-item img {
+			transition: transform 0.5s ease;
+			display: block;
+			width: 100%;
+		}
+
+		.project-item:hover img {
+			transform: scale(1.05);
+		}
+
+		.project-item::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			opacity: 0;
+			transition: opacity 0.5s ease;
+			pointer-events: none;
+		}
+
+		.project-item:hover::after {
+			opacity: 1;
+		}
+
+
+</style>
+
+
+<div class="container py-2">
+	<br />
+
+	<ul class="nav nav-pills sort-source sort-source-style-3 justify-content-center">
+		<li class="nav-item">
+			<a class="nav-link text-2-5 text-uppercase active" href="#" data-category-id="0">
+				<i class="fas fa-th-large"></i> Show All
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-2-5 text-uppercase" href="#" data-category-id="1">
+				<i class="fas fa-hammer"></i> General Construction
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-2-5 text-uppercase" href="#" data-category-id="2">
+				<i class="fas fa-paint-roller"></i> Painting
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-2-5 text-uppercase" href="#" data-category-id="3">
+				<i class="fas fa-wrench"></i> Plumbing
+			</a>
+		</li>
+		<!-- Add other categories as needed -->
+	</ul>
+	<hr class="solid"/>
+
+	<div class="portfolio-list">
+		<!-- Projects will be loaded here -->
+	</div>
+</div>
+
+
+
+
+@section Scripts{
+	<script>
+		$(document).ready(function () {
+			window.fetchAndDisplayProjects = function (categoryId) {
+				$.ajax({
+					url: '/Project/GetProjectsByCategory',
+					type: 'GET',
+					dataType: 'json',
+					data: { categoryId: categoryId },
+					success: function (projects) {
+						console.log(projects);
+						var htmlContent = '';
+						if (projects.length > 0) {
+							htmlContent += '<div class="row">';
+
+							$.each(projects, function (index, project) {
+								if (project.imageFileNames) {
+									var filenames = project.imageFileNames.split(',');
+									var imagePath = '/Image/' + filenames[0];
+
+									if (index > 0 && index % 3 === 0) {
+										htmlContent += '</div><div class="row mt-4">'; // Add margin-top class for spacing between rows
+									}
+
+									var projectDetailsUrl = '/Project/Detail/' + project.id;
+
+									htmlContent += '<div class="col-md-4 mb-4 project-item">' + // mb-4 for spacing between columns
+										'<a href="' + projectDetailsUrl + '" class="d-block">' +
+										'<img src="' + imagePath + '" alt="Project Image" class="img-fluid">' +
+										'<div class="overlay"></div>' + // This is the transparent overlay
+										'</a>' +
+										'</div>';
+								} else {
+									if (index > 0 && index % 3 === 0) {
+										htmlContent += '</div><div class="row mt-4">'; // Add margin-top class for spacing
+									}
+
+									htmlContent += '<div class="col-md-4 mb-4 project-item">' + // mb-4 for spacing between columns
+										'<a href="/Project/Details/0" class="d-block">' +
+										'<img src="/Image/default.png" alt="Default Project Image" class="img-fluid">' +
+										'<div class="overlay"></div>' + // This is the transparent overlay
+										'</a>' +
+										'</div>';
+								}
+							});
+
+							htmlContent += '</div>';
+						} else {
+							htmlContent = '<p>No projects available.</p>';
+						}
+						$('.portfolio-list').html(htmlContent);
+					},
+					error: function () {
+						console.error("An error occurred fetching the data.");
+					}
+				});
+			};
+
+			$('.nav-link').on('click', function (e) {
+				e.preventDefault();
+				var categoryId = $(this).data('category-id');
+				$('.nav-link').removeClass('active');
+				$(this).addClass('active');
+				window.fetchAndDisplayProjects(categoryId);
+			});
+
+			window.fetchAndDisplayProjects(0); // Fetch all projects on initial load
+		});
+	</script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

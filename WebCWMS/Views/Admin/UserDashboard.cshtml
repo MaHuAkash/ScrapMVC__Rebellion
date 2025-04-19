@@ -1,0 +1,156 @@
+﻿@using WebCWMS.ViewModel
+@model IEnumerable<TimeRecordViewModel>
+
+@{
+    ViewData["Title"] = "User Dashboard";
+    Layout = "~/Areas/Identity/Pages/Views/Shared/_LoginPartial.cshtml";
+    var userEmail = User.Identity.Name;
+
+    // Determine if the user is currently clocked in
+    var isClockedIn = Model.Any() && !Model.Last().ClockOutTime.HasValue;
+}
+
+<h2>User Dashboard</h2>
+
+<p>Welcome to your Dashboard, @userEmail.</p>
+
+<!-- Clock In and Clock Out Buttons -->
+<!-- Show Clock In if the user is not currently clocked in -->
+<form asp-action="ClockIn" asp-controller="TimeRecord" method="post">
+    <button type="submit" class="btn btn-success">Clock In</button>
+</form>
+
+<!-- Display Working Days List -->
+<h3>The Days U Worked</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Clock In Time </th>
+            <th>Clock Out Time </th>
+            <th>Working Hours</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var record in Model)
+        {
+            <tr>
+                <!-- Display Clock In Time in 12-hour format -->
+                <td>@record.ClockInTimeVancouver.ToString("yyyy-MM-dd hh:mm:ss tt")</td>
+
+                <!-- Display Clock Out Time in 12-hour format or show 'Still Working' -->
+                <td>@(record.ClockOutTime.HasValue ? record.ClockOutTimeVancouver.Value.ToString("yyyy-MM-dd hh:mm:ss tt") : "Still Working")</td>
+
+                <!-- Calculate and display Total Work Time -->
+                <td>@(record.ClockOutTime.HasValue ? (record.ClockOutTime.Value - record.ClockInTime).ToString(@"hh\:mm\:ss") : "N/A")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- ROW OPEN-->
+<div class="">
+    <div class="card">
+        <div class="card-body">
+            <div class="cal1" id="hehe"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <script>
+                var clndrTemplate =
+            "<div class='clndr-controls'>" +
+                "<div class='clndr-control-button'>" +
+                    "<span class='clndr-previous-button'>previous</span>" +
+                "</div>" +
+                "<div class='month'><%= month %> <%= year %></div>" +
+                "<div class='clndr-control-button rightalign'>" +
+                    "<span class='clndr-next-button'>next</span>" +
+                "</div>" +
+            "</div>" +
+            "<table class='clndr-table' border='0' cellspacing='0' cellpadding='0'>" +
+                "<thead>" +
+                    "<tr class='header-days'>" +
+                    "<% for(var i = 0; i < daysOfTheWeek.length; i++) { %>" +
+                        "<td class='header-day'><%= daysOfTheWeek[i] %></td>" +
+                    "<% } %>" +
+                    "</tr>" +
+                "</thead>" +
+                "<tbody>" +
+                "<% for(var i = 0; i < numberOfRows; i++){ %>" +
+                    "<tr>" +
+                    "<% for(var j = 0; j < 7; j++){ %>" +
+                    "<% var d = j + i * 7; %>" +
+                        "<td class='<%= days[d].classes %>'>" +
+                            "<div class='day-contents'>" +
+                                "<%= days[d].day %>" +
+                                "<% if(days[d].events.length > 0) { %>" +
+                                    "<% _.each(days[d].events, function(event) { %>" +
+                                        "<div class='event-duration'><%= event.title %></div>" +
+                                    "<% }); %>" +
+                                "<% } %>" +
+                            "</div>" +
+                        "</td>" +
+                    "<% } %>" +
+                    "</tr>" +
+                "<% } %>" +
+                "</tbody>" +
+            "</table>";
+        var timeRecords = @Html.Raw(Json.Serialize(Model));
+        var calendars = {};
+
+
+        $(function () {
+            if (typeof timeRecords === 'undefined' || !timeRecords) {
+                console.error('timeRecords is not defined');
+                return;
+            }
+            console.log("timeRecords:", timeRecords);
+
+            var eventArray = timeRecords.map(function (record) {
+                console.log("Processing record:", record);
+                var clockIn = moment(record.clockInTimeVancouver);
+                var clockOut = record.clockOutTimeVancouver ? moment(record.clockOutTimeVancouver) : null;
+                console.log("Raw clockInTimeVancouver:", record.clockInTimeVancouver);
+                console.log("Raw clockOutTimeVancouver:", record.clockOutTimeVancouver);
+
+
+                var duration;
+                if (clockOut && clockOut.isValid()) {
+                    if (clockOut.isAfter(clockIn)) {
+                        var durationInMinutes = clockOut.diff(clockIn, 'minutes');
+                        var hours = Math.floor(durationInMinutes / 60);
+                        var minutes = durationInMinutes % 60;
+                        var seconds = clockOut.diff(clockIn, 'seconds') % 60;
+                        duration = hours + 'h ' + minutes + 'm ' + seconds + 's';
+                    } else {
+                        duration = 'Clock Out time is before or same as Clock In time';
+                    }
+                } else {
+                    duration = 'Ongoing Session';
+                }
+                console.log("Duration for record:", duration);
+
+                return {
+                    title: duration,
+                    date: clockIn.format('YYYY-MM-DD'),
+                };
+            });
+            // Log the final eventArray right before initializing CLNDR
+            console.log("Final eventArray before CLNDR:", eventArray);
+
+            // Initialize the calendar with the event array
+            $('.cal1').clndr({
+                events: eventArray,
+                template: clndrTemplate,
+                // ... other settings ...
+            }); console.log("eventArray after processing:", eventArray);
+
+        });
+    </script>
+}
+
+
+
